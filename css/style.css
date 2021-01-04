@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab&display=swap');
+
+body {
+    background: url('../img/Money\ Background.jpg');
+}
+div.main{
+    background-color: rgba(255, 0, 255, 0.5);
+    height: 100vh;
+    width: 100vw;
+}
+
+div.index{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1.index{
+    margin: 0;
+    margin-top: 8vw;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 8vw;
+    line-height: 8vw;
+}
+
+h2.index{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 2vw;
+}
+
+.button{
+    padding: 0.83vw 1.66vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.83vw;
+    margin: 0.208vw 3.33vw;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button{  
+    background-color: white; 
+    color: black; 
+    border: 2px solid blue;
+    border-radius: 16px;
+    width: 16vw;
+    height: 4vw;
+    font-size: 2vw;
+}
+
+.button:hover{
+    background-color: blue;
+    color: white;
+}
+
+/* Signup*/
+
+div.signup-index2{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1.signup-index2{
+    margin: 0;
+    margin-top: 12vw;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 6vw;
+    line-height: 6vw;
+}
+
+h2.signup-index2{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+
+div.signup-index{
+    width: 50vw;
+}
+
+div.verticalLine{
+    margin-top: 10vh;
+    height: 80vh;
+    border: 4px solid black;
+}
+
+div.signup{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+div.signup-details{
+    width: 50vw;
+    margin-top: 12vw;
+}
+
+div.signup-details > div > label{
+    font-size: 1.25vw;
+    color: lightblue;
+    display: inline-block;
+    margin-left: 3.2vw;
+    position: absolute;
+    margin-top: 50px;
+    transition: margin-top 0.4s;
+}
+
+div.signup-details > div{
+    display:flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+div.signup-details > div > input{
+    background: none;
+    border: none;
+    color: cyan;
+    outline: none;
+    border-bottom: 2px solid black;
+    height: 48px;
+    width: 20.83vw;
+    font-size: 32px;
+    margin-left: 3vw;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+div.signup-details > div > input:focus ~ label{
+    margin-top: 20px;
+}
+
+div.signup-details > div > input:not(:placeholder-shown) ~ label{
+    margin-top: 20px;
+}
+
+div.index-buttons > button{
+    width: 20.83vw;
+    margin-left: 3vw;
+}
