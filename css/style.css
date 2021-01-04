@@ -139,7 +139,136 @@ div.signup-details > div > input:not(:placeholder-shown) ~ label{
     margin-top: 20px;
 }
 
-div.index-buttons > button{
+div.signup-details > div.index-buttons > button{
     width: 20.83vw;
     margin-left: 3vw;
+}
+
+div.signup-existinguser{
+    display: flex;
+    justify-content: center;
+    margin-left: 3vw;
+    width: 20.83vw;
+}
+
+div.signup-existinguser > a{
+    background-color: lime;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+div.signup-details > div > img{
+    display: inline-block;
+    width: 1.67vw;
+    height: 1.67vw;
+    position: absolute;
+    margin-left: 1vw;
+    margin-top: 50px;
+}
+
+/* Signin.html */
+
+
+div.signin-index2{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1.signin-index2{
+    margin: 0;
+    margin-top: 12vw;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 6vw;
+    line-height: 6vw;
+}
+
+h2.signin-index2{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-size: 1.5vw;
+}
+
+
+div.signin-index{
+    width: 50vw;
+}
+
+div.signin{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+div.signin-details{
+    width: 50vw;
+    margin-top: 12vw;
+}
+
+div.signin-details > div > label{
+    font-size: 1.25vw;
+    color: lightblue;
+    display: inline-block;
+    margin-left: 3.2vw;
+    position: absolute;
+    margin-top: 50px;
+    transition: margin-top 0.4s;
+}
+
+div.signin-details > div{
+    display:flex;
+    flex-direction: column;
+    align-content: space-between;
+}
+
+div.signin-details > div > input{
+    background: none;
+    border: none;
+    color: cyan;
+    outline: none;
+    border-bottom: 2px solid black;
+    height: 48px;
+    width: 20.83vw;
+    font-size: 32px;
+    margin-left: 3vw;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+div.signin-details > div > input:focus ~ label{
+    margin-top: 20px;
+}
+
+div.signin-details > div > input:not(:placeholder-shown) ~ label{
+    margin-top: 20px;
+}
+
+div.signin-details > div.index-buttons > button{
+    width: 20.83vw;
+    margin-left: 3vw;
+}
+
+div.signin-newuser{
+    display: flex;
+    justify-content: center;
+    margin-left: 3vw;
+    width: 20.83vw;
+}
+
+div.signin-newuser > a{
+    background-color: lime;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+}
+
+div.signin-details > div > img{
+    display: inline-block;
+    width: 1.67vw;
+    height: 1.67vw;
+    position: absolute;
+    margin-left: 1vw;
+    margin-top: 50px;
 }
