@@ -18,24 +18,26 @@
             <div class="signup-index">
                 <div class="signup-index2">
                     <h1 class="signup-index2">YOUR FINANCIAL TRACKER</h1>
-                    <h2 class="signup-index2">Tracking Your Financial Has Never Been Easy.<br>
+                    <h2 class="signup-index2">Tracking Your Finance Has Never Been Easier.<br>
                         Join Now!</h2>
                 </div>
             </div>
             <div class="verticalLine"></div>
             <div class="signup-details">
                 <div class="su-username">
-                    <input id="su-username" type="text" required placeholder=" ">
+                    <input id="su-username" type="text" name="Username" required placeholder=" ">
                     <img src = "../img/Avatar.png">
                     <label for="su-username">Username</label>
+                    <p id="su-un-taken">Username Has Been Taken!</p>
                 </div>
                 <div class="su-email">
-                    <input id="su-email" type="email" required placeholder=" ">
+                    <input id="su-email" type="email" name="Email" required placeholder=" ">
                     <img src = "../img/Email.png">
                     <label for="su-email">Email Address</label>
+                    <p id="su-em-taken">Email Has Already Been Used!</p>
                 </div>
                 <div class="su-password">
-                    <input id="su-password" type="password" required placeholder=" ">
+                    <input id="su-password" type="password" name="Password" required placeholder=" ">
                     <img src = "../img/Padlock.png">
                     <label for="su-password">Password</label>
                 </div>
@@ -50,6 +52,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://financialtracker-407b.restdb.io/rest/_jsapi.js"></script>
+    <script src="https://financialtracker-407b.restdb.io/assets/js/jquery-serialize-object.min.js"></script>
     <script src="../js/script.js" async defer></script>
 </body>
 
