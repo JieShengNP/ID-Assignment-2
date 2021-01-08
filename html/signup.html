@@ -41,8 +41,8 @@
                     <img src = "../img/Padlock.png">
                     <label for="su-password">Password</label>
                 </div>
-                <div class="index-buttons">
-                    <button class="button button-su" onclick="signupGetValue();">Sign Up</button>
+                <div class="index-sbuttons">
+                    <button class="sbutton button-su" onclick="signupGetValue();">Sign Up</button>
                 </div>
                 <div class="signup-existinguser">
                     <a href="signin.html">Already have an account? Sign in.</a>
@@ -52,8 +52,14 @@
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://financialtracker-407b.restdb.io/rest/_jsapi.js"></script>
-    <script src="https://financialtracker-407b.restdb.io/assets/js/jquery-serialize-object.min.js"></script>
-    <script src="../js/script.js" async defer></script>
+    <script src="../js/signup.js" async defer></script>
+    <script>$(document).ready(function () {
+        $(".sbutton").css("opacity", "1");
+        $(".sbutton").click(function () {
+            $(this).addClass("button-active");
+            signupGetValue();
+        });
+    })</script>
 </body>
 
 </html>

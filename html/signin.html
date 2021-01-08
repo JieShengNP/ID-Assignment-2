@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -24,18 +25,21 @@
             </div>
             <div class="verticalLine"></div>
             <div class="signin-details">
+                <div class="si-incorrect">
+                    <p>Incorrect Username Or Password!</p>
+                </div>
                 <div class="su-username">
                     <input id="su-username" type="text" required placeholder=" ">
-                    <img src = "../img/Avatar.png">
+                    <img src="../img/Avatar.png">
                     <label for="su-username">Username</label>
                 </div>
                 <div class="su-password">
                     <input id="su-password" type="password" required placeholder=" ">
-                    <img src = "../img/Padlock.png">
+                    <img src="../img/Padlock.png">
                     <label for="su-password">Password</label>
                 </div>
-                <div class="index-buttons">
-                    <button class="button button-su" onclick="signinGetValue();">Sign In</button>
+                <div class="index-sbuttons">
+                    <button class="sbutton button-su">Sign In</button>
                 </div>
                 <div class="signin-newuser">
                     <a href="signup.html">Don't have an account? Sign up.</a>
@@ -45,7 +49,14 @@
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
     <script src="https://financialtracker-407b.restdb.io/rest/_jsapi.js"></script>
-    <script src="../js/script.js" async defer></script>
+    <script src="../js/signin.js" async defer></script>
+    <script>$(document).ready(function () {
+            $(".sbutton").css("opacity", "1");
+            $(".sbutton").click(function () {
+                $(this).addClass("button-active");
+                signinGetValue();
+            });
+        })</script>
 </body>
 
 </html>
