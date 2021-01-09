@@ -23,7 +23,7 @@ var salt = "JavaScript!"
 function signinGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupPassword = document.getElementById("su-password").value;
-    var encryptedPassword = (CryptoJS.SHA1(signupPassword+salt));
+    var encryptedPassword = CryptoJS.SHA1(signupPassword+salt).toString();
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
             if (signupUsername == response[i].Username && encryptedPassword == response[i].AccountDetails[0].Password) {
@@ -39,9 +39,11 @@ function signinGetValue() {
                 }, 1000);
                 break;
             } else if ((i + 1) == response.length) {
-                $(".sbutton").removeClass("button-active");
-                $(".sbutton").removeClass("button-success");
-                $('.si-incorrect').css("opacity", "1");
+                setTimeout(function(){
+                    $(".sbutton").removeClass("button-active");
+                    $(".sbutton").removeClass("button-success");
+                    $('.si-incorrect').css("opacity", "1");
+                }, 1000);
             }
         }
     });

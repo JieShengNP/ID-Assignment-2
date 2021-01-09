@@ -25,7 +25,7 @@ function signupGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupEmail = document.getElementById("su-email").value.toUpperCase();
     var signupPassword = document.getElementById("su-password").value;
-    var encryptedPassword = (CryptoJS.SHA1(signupPassword+salt));
+    var encryptedPassword = CryptoJS.SHA1(signupPassword+salt).toString();
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
             if (signupUsername == response[i].Username) {
@@ -116,7 +116,7 @@ function signupGetValue() {
                             $(".sbutton").addClass("button-success");
                             setTimeout(function () {
                                 window.location.href = "../html/financetracker.html";
-                            }, 3000);
+                            }, 1000);
                         })
                     })
                 })
