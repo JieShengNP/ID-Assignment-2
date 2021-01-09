@@ -375,5 +375,16 @@ div.index-sbuttons{
 .ft-header > h1{
     text-align: center;
     font-size: 3vw;
-    line-height: 1vw;
+    color: white;
+    background-color: #0080FF;
+    width: fit-content;
+    height: fit-content;
+}
+.ft-container{
+    display: flex;
+    justify-content: center;
+}
+#piechart{
+    width: 60vw;
+    height: 40vw;
 }
