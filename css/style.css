@@ -520,3 +520,8 @@ div.index-sbuttons{
     background-color: white;
     font-size: 4vw;
 }
+
+.data-buttons{
+    display: flex;
+    justify-content: center;
+}

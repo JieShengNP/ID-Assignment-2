@@ -108,14 +108,17 @@ function loadChartTable() {
             title: 'My Financial Tracker',
             pieHole: 0.3,
             backgroundColor: 'white',
-            titleTextStyle: {fontSize: 24},
+            titleTextStyle: {fontSize: 24*visualViewport.width/1920},
+            legend:{textStyle:{fontSize: 24*visualViewport.width/1920}, alignment: "center"},
+            chartArea:{width:"100%",height:"80%"},
+            height: "10%",
             slices: slicesForChart
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
         document.getElementById("piechart-placeholder").style.display = "none";
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
+        google.visualization.events.addListener(chart, 'ready', titleCenter(options));
     }
 }
 
@@ -160,3 +163,21 @@ function submitData() {
         loadDataFromServer();
     });
 }
+
+function titleCenter(options) {
+    var $container = $('#piechart');
+    var svgWidth = $container.find('svg').width();
+    var $titleElem = $container.find("text:contains(" + options.title + ")");
+    var titleWidth = $titleElem.html().length * ($titleElem.attr('font-size')/2);
+    var xAxisAlign = (svgWidth - titleWidth)/2;
+    $titleElem.attr('x', xAxisAlign);
+}
+
+var currentwidth = null;
+var responsiveChart = function(){
+    if (visualViewport.width != currentwidth){
+        loadChartTable();
+        window.currentwidth = visualViewport.width;
+    }
+}
+setInterval(responsiveChart, 1);
