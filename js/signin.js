@@ -18,17 +18,15 @@ var userID = null;
 var userFID = null;
 var userAID = null;
 var existingUsername = null;
+var salt = "JavaScript!"
 
 function signinGetValue() {
-
-    //https://www.youtube.com/watch?v=CJ5bWfp3coM
-
-
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupPassword = document.getElementById("su-password").value;
+    var encryptedPassword = (CryptoJS.SHA1(signupPassword+salt));
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
-            if (signupUsername == response[i].Username && signupPassword == response[i].AccountDetails[0].Password) {
+            if (signupUsername == response[i].Username && encryptedPassword == response[i].AccountDetails[0].Password) {
                 console.log("Success");
                 window.userID = response[i]._id;
                 if (window.localStorage.getItem("AccountInfo")) {
@@ -38,7 +36,7 @@ function signinGetValue() {
                 $(".sbutton").addClass("button-success");
                 setTimeout(function () {
                     window.location.href = "../html/financetracker.html";
-                }, 3000);
+                }, 1000);
                 break;
             } else if ((i + 1) == response.length) {
                 $(".sbutton").removeClass("button-active");
@@ -47,4 +45,8 @@ function signinGetValue() {
             }
         }
     });
+}
+
+function clearLocalData(){
+    window.localStorage.clear();
 }

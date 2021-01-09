@@ -19,11 +19,13 @@ var userID = null;
 var userFID = null;
 var userAID = null;
 var existingUsername = null;
+var salt = "JavaScript!"
 
 function signupGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupEmail = document.getElementById("su-email").value.toUpperCase();
     var signupPassword = document.getElementById("su-password").value;
+    var encryptedPassword = (CryptoJS.SHA1(signupPassword+salt));
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
             if (signupUsername == response[i].Username) {
@@ -64,7 +66,7 @@ function signupGetValue() {
                         "content-type": "application/json"
                     },
                     "processData": false,
-                    "data": JSON.stringify({ Email: signupEmail, Password: signupPassword })
+                    "data": JSON.stringify({ Email: signupEmail, Password: encryptedPassword })
                 }
                 $.ajax(ajaxSettings).done(function (response) {
                     console.log(response);
@@ -106,7 +108,7 @@ function signupGetValue() {
                             }
                             $.ajax(usernameSettings).done(function (response) {
                                 for (i = 0; i < response.length; i++) {
-                                    if (signupUsername == response[i].Username && signupPassword == response[i].AccountDetails[0].Password) {
+                                    if (signupUsername == response[i].Username && encryptedPassword == response[i].AccountDetails[0].Password) {
                                         window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
                                     }
                                 }
@@ -121,4 +123,8 @@ function signupGetValue() {
             }
         }
     });
+}
+
+function clearLocalData(){
+    window.localStorage.clear();
 }
