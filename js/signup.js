@@ -80,7 +80,7 @@ function signupGetValue() {
                             "content-type": "application/json"
                         },
                         "processData": false,
-                        "data": JSON.stringify({Transport: 0, Shopping: 0, Entertainment: 0, Food: 0, Others: 0})
+                        "data": JSON.stringify({ Transport: 0, Shopping: 0, Entertainment: 0, Food: 0, Others: 0 })
                     }
                     $.ajax(ajaxSettings).done(function (response) {
                         console.log(response);
@@ -96,13 +96,21 @@ function signupGetValue() {
                                 "content-type": "application/json"
                             },
                             "processData": false,
-                            "data": JSON.stringify({Username: signupUsername, AccountDetails:[userAID], FinanceInfo:[userFID]})
+                            "data": JSON.stringify({ Username: signupUsername, AccountDetails: [userAID], FinanceInfo: [userFID] })
                         }
                         $.ajax(ajaxSettings).done(function (response) {
                             console.log(response);
                             window.userID = response._id;
-                            window.localStorage.removeItem("AccountInfo");
-                            window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
+                            if (window.localStorage.getItem("AccountInfo")) {
+                                window.localStorage.removeItem("AccountInfo");
+                            }
+                            $.ajax(usernameSettings).done(function (response) {
+                                for (i = 0; i < response.length; i++) {
+                                    if (signupUsername == response[i].Username && signupPassword == response[i].AccountDetails[0].Password) {
+                                        window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
+                                    }
+                                }
+                            });
                             $(".sbutton").addClass("button-success");
                             setTimeout(function () {
                                 window.location.href = "../html/financetracker.html";
