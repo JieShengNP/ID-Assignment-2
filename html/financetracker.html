@@ -18,12 +18,43 @@
             <h1>Overall Spendings</h1>
         </div>
         <button id="ft-logout" onclick="logOut();">Log Out</button>
-        <div class="ft-container">
-            <div id="piechart"></div>
-        </div>
+        <div id="ft-piechart"></div>
+        <div id="piechart-placeholder"><p>Loading Chart...</p></div>
         <div class="ft-buttons">
-            <button class="button button-si" onclick="">Edit Data</button>
+            <button class="button button-si" onclick="openDataWindow()">Edit Data</button>
             <button class="button button-si" onclick="">Recent Edits</button>
+        </div>
+    </div>
+
+    <div class="editDataWindow" id="editDataWindow">
+        <div class="editDataContent">
+            <div class="dataHeader">
+                <h1>Edit Data</h1>
+            </div>
+            <div class="ft-data ft-transport">
+                <label for="ft-transport">Transport($):</label>
+                <input id="ft-transport" type="number" required placeholder=" " min="0">
+            </div>
+            <div class="ft-data ft-shopping">
+                <label for="ft-shopping">Shopping($):</label>
+                <input id="ft-shopping" type="number" required placeholder=" " min="0">
+            </div>
+            <div class="ft-data ft-entertainment">
+                <label for="ft-entertainment">Entertainment($):</label>
+                <input id="ft-entertainment" type="number" required placeholder=" " min="0">
+            </div>
+            <div class="ft-data ft-food">
+                <label for="ft-food">Food($):</label>
+                <input id="ft-food" type="number" required placeholder=" " min="0">
+            </div>
+            <div class="ft-data ft-others">
+                <label for="ft-others">Others($):</label>
+                <input id="ft-others" type="number" required placeholder=" " min="0">
+            </div>
+            <div class="data-buttons">
+                <button class="button button-g" onclick="submitData()">Edit</button>
+                <button class="button button-r" onclick="closeDataWindow()">Cancel</button>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>

@@ -381,7 +381,7 @@ div.index-sbuttons{
     height: fit-content;
     font-family: Arial, Helvetica, sans-serif;
 }
-.ft-container{
+#ft-piechart{
     display: flex;
     justify-content: center;
 }
@@ -434,4 +434,89 @@ div.index-sbuttons{
     font-family: Arial, Helvetica, sans-serif;
     margin-top: 40vh;
     margin-bottom: 40vh;
+}
+
+
+.editDataWindow{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.8);
+}
+
+.editDataContent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50vw;
+  }
+
+#data-close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#data-close:hover, #data-close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-g:hover{
+    background-color: green;
+    color: white;
+}
+.button-r:hover{
+    background-color: red;
+    color: white;
+}
+
+.ft-data > label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2vw;
+}
+
+.ft-data > input{
+    height: 32px;
+    font-size: 1vw;
+}
+
+.ft-data{
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.dataHeader > h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 4vw;
+    text-align: center;
+    margin: 0;
+    margin-bottom: 32px;
+}
+
+#piechart-placeholder{
+    display: flex;
+    justify-content: center;
+}
+
+#piechart-placeholder > p{
+    margin: 0;
+    width: 50vw;
+    height: 30vw;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 30vw;
+    background-color: white;
+    font-size: 4vw;
 }

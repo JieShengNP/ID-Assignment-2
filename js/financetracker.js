@@ -1,14 +1,11 @@
-var AccountData = null;
 var userID = null;
 //Check that Data exist in order to continue.
 function loadData() {
-    window.AccountData = localStorage.getItem("AccountInfo");
-    if (window.AccountData == null) {
+    if (localStorage.getItem("AccountInfo") == null) {
         alert("An Error Has Occured. Returning back to main page.");
         window.location.replace('../html/index.html');
     }
     else {
-        window.AccountDataParsed = JSON.parse(AccountData);
         loadDataFromServer();
     }
 }
@@ -29,9 +26,10 @@ function loadDataFromServer() {
 
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
-            if (response[i]._id == JSON.parse(AccountData)._id) {
-                window.userID = JSON.parse(AccountData)._id;
+            if (response[i]._id == JSON.parse(localStorage.getItem("AccountInfo"))._id) {
+                window.userID = JSON.parse(localStorage.getItem("AccountInfo"))._id;
                 setInterval(checkLocalData(), 1);
+                window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
                 loadChartTable();
                 break;
             } else {
@@ -46,19 +44,24 @@ function loadDataFromServer() {
 
 //Check That Data Doesn't Disappear (or) replaced.
 function checkLocalData() {
-    if (JSON.parse(AccountData)._id != userID) {
+    if (JSON.parse(localStorage.getItem("AccountInfo"))._id != userID) {
         alert("An Error Has Occured. Returning back to main page.");
         window.location.replace('../html/index.html');
     }
 }
 
+function resetChartTable(){
+    document.getElementById("ft-piechart").innerHTML = '<div id="piechart"></div>';
+    document.getElementById("piechart-placeholder").style.display = "flex";
+}
 
 function loadChartTable() {
+    resetChartTable();
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var ADFI = JSON.parse(AccountData).FinanceInfo[0];
+        var ADFI = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0];
         var mostSpent = Math.max(ADFI.Transport, ADFI.Shopping, ADFI.Entertainment, ADFI.Food, ADFI.Others);
         var slicesForChart = {}
         var counter = 0;
@@ -91,11 +94,11 @@ function loadChartTable() {
             } else {
                 var data = google.visualization.arrayToDataTable([
                     ['Category', 'Amount Spent ($)'],
-                    ['Transport', JSON.parse(AccountData).FinanceInfo[0].Transport],
-                    ['Shopping', JSON.parse(AccountData).FinanceInfo[0].Shopping],
-                    ['Entertainment', JSON.parse(AccountData).FinanceInfo[0].Entertainment],
-                    ['Food', JSON.parse(AccountData).FinanceInfo[0].Food],
-                    ['Others', JSON.parse(AccountData).FinanceInfo[0].Others]
+                    ['Transport', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport],
+                    ['Shopping', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping],
+                    ['Entertainment', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment],
+                    ['Food', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food],
+                    ['Others', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others]
                 ]);
             }
             return data;
@@ -105,16 +108,55 @@ function loadChartTable() {
             title: 'My Financial Tracker',
             pieHole: 0.3,
             backgroundColor: 'white',
+            titleTextStyle: {fontSize: 24},
             slices: slicesForChart
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
+        document.getElementById("piechart-placeholder").style.display = "none";
         chart.draw(data, options);
     }
 }
 
-function logOut(){
+function logOut() {
     window.localStorage.clear();
     window.location.replace("../html/logout.html");
+}
+
+function closeDataWindow() {
+    document.getElementById("editDataWindow").style.display = "none";
+}
+
+function openDataWindow() {
+    document.getElementById("editDataWindow").style.display = "block";
+    document.getElementById("ft-transport").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport;
+    document.getElementById("ft-shopping").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping;
+    document.getElementById("ft-entertainment").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment;
+    document.getElementById("ft-food").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food;
+    document.getElementById("ft-others").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others;
+}
+
+function submitData() {
+    var newTransport = document.getElementById("ft-transport").value;
+    var newShopping = document.getElementById("ft-shopping").value;
+    var newEntertainment = document.getElementById("ft-entertainment").value;
+    var newFood = document.getElementById("ft-food").value;
+    var newOthers = document.getElementById("ft-others").value;
+    var ajaxSettings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://financialtracker-407b.restdb.io/rest/finance/" + JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0]._id,
+        "method": "PUT",
+        "headers": {
+            "x-apikey": '5ff2b985823229477922c6e2',
+            "content-type": "application/json"
+        },
+        "processData": false,
+        "data": JSON.stringify({ Transport: Number(newTransport), Shopping: Number(newShopping), Entertainment: Number(newEntertainment), Food: Number(newFood), Others: Number(newOthers) })
+    }
+    $.ajax(ajaxSettings).done(function (response) {
+        closeDataWindow();
+        loadDataFromServer();
+    });
 }
