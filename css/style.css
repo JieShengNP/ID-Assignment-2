@@ -379,6 +379,7 @@ div.index-sbuttons{
     background-color: #0080FF;
     width: fit-content;
     height: fit-content;
+    font-family: Arial, Helvetica, sans-serif;
 }
 .ft-container{
     display: flex;
@@ -393,6 +394,7 @@ div.index-sbuttons{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-top: 30px;
 }
 
 #ft-logout{
