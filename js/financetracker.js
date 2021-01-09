@@ -58,42 +58,53 @@ function loadChartTable() {
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Category', 'Amount Spent ($)'],
-            ['Transport', JSON.parse(AccountData).FinanceInfo[0].Transport],
-            ['Shopping', JSON.parse(AccountData).FinanceInfo[0].Shopping],
-            ['Entertainment', JSON.parse(AccountData).FinanceInfo[0].Entertainment],
-            ['Food', JSON.parse(AccountData).FinanceInfo[0].Food],
-            ['Others', JSON.parse(AccountData).FinanceInfo[0].Others]
-        ]);
         var ADFI = JSON.parse(AccountData).FinanceInfo[0];
         var mostSpent = Math.max(ADFI.Transport, ADFI.Shopping, ADFI.Entertainment, ADFI.Food, ADFI.Others);
         var slicesForChart = {}
         var counter = 0;
         var offsetAmount = 0.05;
-        if (ADFI.Transport == mostSpent) {
-            slicesForChart[counter.toString()] = { "offset": offsetAmount };
+        if (mostSpent != 0) {
+            if (ADFI.Transport == mostSpent) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
+            if (ADFI.Transport != 0) { counter++; }
+            if (ADFI.Shopping == mostSpent) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
+            if (ADFI.Shopping != 0) { counter++; }
+            if (ADFI.Entertainment == mostSpent) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
+            if (ADFI.Entertainment != 0) { counter++; }
+            if (ADFI.Food == mostSpent) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
+            if (ADFI.Food != 0) { counter++; }
+            if (ADFI.Others == mostSpent) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
         }
-        if (ADFI.Transport != 0) { counter++; }
-        if (ADFI.Shopping == mostSpent) {
-            slicesForChart[counter.toString()] = { "offset": offsetAmount };
+        function loadGraphData() {
+            if (counter == 0) {
+                var data = google.visualization.arrayToDataTable([
+                    ['Category', 'Amount Spent ($)'], ["No Data Found\nStart Adding Data Now!", 1]]);
+            } else {
+                var data = google.visualization.arrayToDataTable([
+                    ['Category', 'Amount Spent ($)'],
+                    ['Transport', JSON.parse(AccountData).FinanceInfo[0].Transport],
+                    ['Shopping', JSON.parse(AccountData).FinanceInfo[0].Shopping],
+                    ['Entertainment', JSON.parse(AccountData).FinanceInfo[0].Entertainment],
+                    ['Food', JSON.parse(AccountData).FinanceInfo[0].Food],
+                    ['Others', JSON.parse(AccountData).FinanceInfo[0].Others]
+                ]);
+            }
+            return data;
         }
-        if (ADFI.Shopping != 0) { counter++; }
-        if (ADFI.Entertainment == mostSpent) {
-            slicesForChart[counter.toString()] = { "offset": offsetAmount };
-        }
-        if (ADFI.Entertainment != 0) { counter++; }
-        if (ADFI.Food == mostSpent) {
-            slicesForChart[counter.toString()] = { "offset": offsetAmount };
-        }
-        if (ADFI.Food != 0) { counter++; }
-        if (ADFI.Others == mostSpent) {
-            slicesForChart[counter.toString()] = { "offset": offsetAmount };
-        }
+        data = loadGraphData();
         var options = {
             title: 'My Financial Tracker',
             pieHole: 0.3,
-            backgroundColor: 'transparent',
+            backgroundColor: 'white',
             slices: slicesForChart
         };
 
@@ -101,4 +112,9 @@ function loadChartTable() {
 
         chart.draw(data, options);
     }
+}
+
+function logOut(){
+    window.localStorage.clear();
+    window.location.replace("../html/logout.html");
 }

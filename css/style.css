@@ -385,6 +385,51 @@ div.index-sbuttons{
     justify-content: center;
 }
 #piechart{
-    width: 60vw;
-    height: 40vw;
+    width: 50vw;
+    height: 30vw;
+}
+
+.ft-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#ft-logout{
+    padding: 0.83vw 1.66vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.83vw;
+    margin: 0.208vw 3.33vw;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid green;
+    border-radius: 16px;
+    width: 16vw;
+    height: 4vw;
+    font-size: 2vw;
+    outline: none;
+    position: absolute;
+    top: 3%;
+    right: 0%;
+}
+
+#ft-logout:hover{
+    background-color: red;
+    color: white;
+}
+
+.logoutMain{
+    display: flex;
+    justify-content: center;
+}
+
+.logoutMain > p{
+    font-size: 5vw;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 40vh;
+    margin-bottom: 40vh;
 }
