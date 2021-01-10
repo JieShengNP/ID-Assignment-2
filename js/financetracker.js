@@ -89,7 +89,7 @@ function loadChartTable() {
             if (ADFI.Others == mostSpent) {
                 slicesForChart[counter.toString()] = { "offset": offsetAmount };
             }
-            if (ADFI.Others != 0) { counter++ }
+            if (ADFI.Others != 0) { counter++; }
             if (ADFI.Savings > 0) {
                 slicesForChart[counter.toString()] = { "offset": offsetAmount };
             }

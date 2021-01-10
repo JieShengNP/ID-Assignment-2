@@ -26,7 +26,7 @@ var checkBlanks = function () {
         document.getElementById("signup-button").disabled = true;
     }
     else { document.getElementById("signup-button").disabled = false; }
-}
+};
 
 setInterval(checkBlanks, 1);
 
@@ -97,7 +97,7 @@ function signupGetValue() {
                 });
             });
         });
-    };
+    }
     $.ajax(usernameSettings).done(function (response) {
         if (response.length != 0) {
             for (i = 0; i < response.length; i++) {
