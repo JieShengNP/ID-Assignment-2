@@ -35,13 +35,9 @@ h2.index{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 0.83vw;
     margin: 0.208vw 3.33vw;
     transition-duration: 0.4s;
     cursor: pointer;
-}
-
-.button{  
     background-color: white; 
     color: black; 
     border: 2px solid green;
@@ -55,6 +51,49 @@ h2.index{
 .button:hover{
     background-color: blue;
     color: white;
+}
+
+/*Responsive*/
+
+@media screen and (max-width: 1240px) {
+    h1.index{
+        font-size: 10vw;
+        line-height: 10vw;
+    }
+
+    h2.index{
+        font-size: 3.5vw;
+    }
+    .index-buttons{
+        display: flex;
+        flex-direction: row;
+    }
+    .button{
+        width: 24vw;
+        height: 8vw;
+        margin-top: 16px;
+        font-size: 4vw;
+    }
+}
+@media screen and (max-width: 960px) {
+    h1.index{
+        font-size: 12vw;
+        line-height: 12vw;
+    }
+
+    h2.index{
+        font-size: 4vw;
+    }
+    .index-buttons{
+        display: flex;
+        flex-direction: column;
+    }
+    .button{
+        width: 48vw;
+        height: 12vw;
+        margin-top: 16px;
+        font-size: 8vw;
+    }
 }
 /* Signup*/
 
@@ -99,10 +138,14 @@ div.signup{
 div.signup-details{
     width: 50vw;
     margin-top: 12vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 div.signup-details > div > label{
-    font-size: 1.25vw;
+    font-size: 1.5vw;
     color: black;
     display: inline-block;
     margin-left: 3.2vw;
@@ -171,7 +214,143 @@ div.signup-details > div > p{
     background-color: black;
     opacity: 0;
 }
+.sbutton{
+    padding: 0.83vw 1.66vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.208vw 3.33vw;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    opacity: 0;
+    box-sizing: border-box;
+    transition: all ease 0.5s;
+    background-color: white; 
+    color: black; 
+    border: 2px solid green;
+    border-radius: 16px;
+    width: 20.83vw;
+    height: 4vw;
+    font-size: 2vw;
+    outline: none;
+}
 
+.sbutton:hover{
+    background-color: blue;
+    color: white;
+}
+
+@media screen and (max-width: 1600px){
+    h1.signup-index2{
+        margin-top: 18vw;
+        font-size: 6vw;
+        line-height: 6vw;
+    }
+}
+
+@media screen and (max-width: 1312px){
+    h1.signup-index2{
+        margin-top: 21vw;
+        font-size: 7vw;
+        line-height: 7vw;
+    }
+}
+
+
+@media screen and (max-width: 1024px){
+    h1.signup-index2{
+        margin-top: 24vw;
+        font-size: 8vw;
+        line-height: 8vw;
+    }
+    
+    h2.signup-index2{
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        font-size: 3vw;
+    }
+    
+    div.signup-details{
+        width: 50vw;
+        margin-top: 12vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    div.signup-details > div > label{
+        font-size: 2vw;
+        margin-top: 60px;
+    }
+    
+    div.signup-details > div > img{
+        width: 2vw;
+        height: 2vw;
+        margin-left: 1vw;
+        margin-top: 60px;
+    }
+    
+    div.signup-details > div > p{
+        font-size: 1.5vw;
+    }
+    
+}
+
+@media screen and (max-width: 768px){
+    .signup-index, .verticalLine{
+        display: none;
+    }
+
+    div.signup-details{
+        width: 100vw;
+        margin-top: 12vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    div.signup-details > div > label{
+        font-size: 4vw;
+        margin-top: 60px;
+    }
+    
+    div.signup-details > div > img{
+        width: 4vw;
+        height: 4vw;
+        margin-left: -2vw;
+        margin-top: 60px;
+    }
+    
+    div.signup-details > div > p{
+        font-size: 1.5vw;
+    }
+
+    div.signup-details > div > input{
+        height: 48px;
+        width: 41.66vw;
+        font-size: 32px;
+        margin-left: 3vw;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    div.signup-details > div > input:focus ~ label{
+        margin-top: 20px;
+    }
+    
+    div.signup-details > div > input:not(:placeholder-shown) ~ label{
+        margin-top: 20px;
+    }
+
+    .sbutton{
+        width: 41.66vw;
+        height: 8vw;
+        font-size: 4vw;
+    }
+    
+}
 /* Signin.html */
 
 
@@ -210,6 +389,10 @@ div.signin{
 div.signin-details{
     width: 50vw;
     margin-top: 12vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 div.signin-details > div > label{
@@ -294,35 +477,118 @@ div.index-sbuttons{
     align-items: center;
 }
 
-.sbutton{
-    padding: 0.83vw 1.66vw;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 0.83vw;
-    margin: 0.208vw 3.33vw;
-    transition-duration: 0.4s;
-    cursor: pointer;
 
-    opacity: 0;
-    box-sizing: border-box;
-    transition: all ease 0.5s;
+
+@media screen and (max-width: 1600px){
+    h1.signin-index2{
+        margin-top: 18vw;
+        font-size: 6vw;
+        line-height: 6vw;
+    }
 }
 
-.sbutton{
-    background-color: white; 
-    color: black; 
-    border: 2px solid green;
-    border-radius: 16px;
-    width: 20.83vw;
-    height: 4vw;
-    font-size: 2vw;
-    outline: none;
+@media screen and (max-width: 1312px){
+    h1.signin-index2{
+        margin-top: 21vw;
+        font-size: 7vw;
+        line-height: 7vw;
+    }
 }
 
-.sbutton:hover{
-    background-color: blue;
-    color: white;
+
+@media screen and (max-width: 1024px){
+    h1.signin-index2{
+        margin-top: 24vw;
+        font-size: 8vw;
+        line-height: 8vw;
+    }
+    
+    h2.signin-index2{
+        font-family: 'Roboto', sans-serif;
+        text-align: center;
+        font-size: 3vw;
+    }
+    
+    div.signin-details{
+        width: 50vw;
+        margin-top: 12vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    div.signin-details > div > label{
+        font-size: 2vw;
+        margin-top: 60px;
+    }
+    
+    div.signin-details > div > img{
+        width: 2vw;
+        height: 2vw;
+        margin-left: 1vw;
+        margin-top: 60px;
+    }
+    
+    div.signin-details > div > p{
+        font-size: 1.5vw;
+    }
+    
+}
+
+@media screen and (max-width: 768px){
+    .signin-index, .verticalLine{
+        display: none;
+    }
+
+    div.signin-details{
+        width: 100vw;
+        margin-top: 12vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    div.signin-details > div > label{
+        font-size: 4vw;
+        margin-top: 60px;
+    }
+    
+    div.signin-details > div > img{
+        width: 4vw;
+        height: 4vw;
+        margin-left: -2vw;
+        margin-top: 60px;
+    }
+    
+    div.signin-details > div > p{
+        font-size: 1.5vw;
+    }
+
+    div.signin-details > div > input{
+        height: 48px;
+        width: 41.66vw;
+        font-size: 32px;
+        margin-left: 3vw;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+    
+    div.signin-details > div > input:focus ~ label{
+        margin-top: 20px;
+    }
+    
+    div.signin-details > div > input:not(:placeholder-shown) ~ label{
+        margin-top: 20px;
+    }
+
+    .sbutton{
+        width: 41.66vw;
+        height: 8vw;
+        font-size: 4vw;
+    }
+    
 }
 
 .button-active{
@@ -365,7 +631,6 @@ div.index-sbuttons{
     top: 8px;
 }
 
-
 /*Finance Tracker CSS*/
 .ft-header{
     display: flex;
@@ -395,7 +660,6 @@ div.index-sbuttons{
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 0.83vw;
     margin: 0.208vw 3.33vw;
     transition-duration: 0.4s;
     cursor: pointer;
@@ -467,7 +731,8 @@ div.index-sbuttons{
 
 .ft-data > input{
     height: 32px;
-    font-size: 1vw;
+    font-size: 1.5vw;
+    width: 150px;
 }
 
 .ft-data{
@@ -531,7 +796,7 @@ div.index-sbuttons{
 #edit-close {
     color: #aaaaaa;
     float: right;
-    font-size: 64px;
+    font-size: 32px;
     font-weight: bold;
 }
 
@@ -586,9 +851,148 @@ div.index-sbuttons{
     background-color: white;
 }
 
-.ft-details > p{
+.ft-details > div > p{
     font-size: 1.25vw;
     line-height: 12px;
     margin-left: 3.33vw;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.ftbutton{
+    padding: 0.83vw 1.66vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 0.208vw 3.33vw;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid green;
+    border-radius: 16px;
+    width: 16vw;
+    height: 4vw;
+    font-size: 2vw;
+    outline: none;
+}
+
+.ftbutton:hover{
+    background-color: blue;
+    color: white;
+}
+.ftbutton-div{
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1024px){
+    .ft-main{
+        flex-direction: column;
+        align-items: center;
+    }
+    .ft-details{
+        width: 50vw;
+    }
+
+    .ft-details > div > p{
+        margin-left: 10vw;
+        font-size: 2vw;
+    }
+
+    .ftbutton-div{
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .ft-data > input{
+        font-size: 1.5vw;
+    }
+
+    #ft-logout{
+        width: 21vw;
+        height: 5vw;
+        font-size: 2.5vw;
+        top: 1%;
+    }
+    
+    .ft-data > label{
+        font-size: 3vw;
+    }
+    
+    .ft-data > input{
+        font-size: 3vw;
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 768px){
+    
+    .ft-main{
+        flex-direction: column;
+        align-items: center;
+    }
+    .ft-details{
+        width: 70vw;
+    }
+
+    .ft-details > div > p{
+        margin-left: 10vw;
+        font-size: 3vw;
+    }
+
+    .ftbutton-div{
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .ft-data > input{
+        font-size: 1.5vw;
+    }
+
+    #piechart{
+        width: 70vw;
+        height: 50vw;
+    }
+    .ftbutton{
+        margin: 0.208vw 3.33vw;
+        width: 24vw;
+        height: 6vw;
+        font-size: 3vw;
+        outline: none;
+    }
+    #ft-logout{
+        width: 24vw;
+        height: 6vw;
+        font-size: 3vw;
+        top: 1%;
+    }
+    
+    .editDataContent{
+        width: 70%;
+    }
+
+    .ft-data > label{
+        font-size: 4vw;
+    }
+    
+    .ft-data > input{
+        font-size: 4vw;
+        width: 100px;
+        height: auto;
+    }
+
+    .viewEditContent{
+        width: 70vw;
+    }
+    
+    .editListTitle{
+        font-size: 2.8vw;
+    }
+
+    .editListCon > p{
+        font-size: 2.4vw;
+        line-height: 4vw;
+        width: fit-content;
+    }
+}
+

@@ -15,6 +15,21 @@ var userAID = null;
 var existingUsername = null;
 var salt = "JavaScript!";
 
+var checkBlanks = function () {
+    if (document.getElementById("su-username").value == "") {
+        document.getElementById("signup-button").disabled = true;
+    }
+    else if (document.getElementById("su-email").value == "") {
+        document.getElementById("signup-button").disabled = true;
+    }
+    else if (document.getElementById("su-password").value == "") {
+        document.getElementById("signup-button").disabled = true;
+    }
+    else { document.getElementById("signup-button").disabled = false; }
+}
+
+setInterval(checkBlanks, 1);
+
 function signupGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupEmail = document.getElementById("su-email").value.toUpperCase();

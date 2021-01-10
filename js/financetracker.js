@@ -38,7 +38,7 @@ function loadDataFromServer() {
                 }
             }
         }
-        if (response.length == 0){
+        if (response.length == 0) {
             alert("An Error Has Occured. Returning back to main page.");
             window.location.replace('../html/index.html');
         }
@@ -125,15 +125,38 @@ function loadChartTable() {
             }
         }
         data = loadGraphData();
-        var options = {
-            title: 'My Financial Tracker',
-            backgroundColor: 'white',
-            titleTextStyle: { fontSize: 24 * visualViewport.width / 1920 },
-            legend: { textStyle: { fontSize: 24 * visualViewport.width / 1920 }, alignment: "center" },
-            chartArea: { width: "100%", height: "80%" },
-            height: "10%",
-            slices: slicesForChart
-        };
+        if (visualViewport.width > 1024) {
+            var options = {
+                title: 'My Financial Tracker',
+                backgroundColor: 'white',
+                titleTextStyle: { fontSize: 24 * visualViewport.width / 1920 },
+                legend: { textStyle: { fontSize: 24 * visualViewport.width / 1920 }, alignment: "center" },
+                chartArea: { width: "100%", height: "80%" },
+                height: "10%",
+                slices: slicesForChart
+            };
+        }
+        else if (visualViewport.width > 768) {
+            var options = {
+                title: 'My Financial Tracker',
+                backgroundColor: 'white',
+                titleTextStyle: { fontSize: 36 * visualViewport.width / 1920 },
+                legend: { textStyle: { fontSize: 36 * visualViewport.width / 1920 }, alignment: "center" },
+                chartArea: { width: "100%", height: "80%" },
+                height: "10%",
+                slices: slicesForChart
+            };
+        } else {
+            var options = {
+                title: 'My Financial Tracker',
+                backgroundColor: 'white',
+                titleTextStyle: { fontSize: 64 * visualViewport.width / 1920 },
+                legend: { textStyle: { fontSize: 64 * visualViewport.width / 1920 }, alignment: "center" },
+                chartArea: { width: "100%", height: "80%" },
+                height: "10%",
+                slices: slicesForChart
+            };
+        }
         document.getElementById("piechart-placeholder").style.display = "none";
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         document.getElementById("ft-piechart").style.display = "flex";
@@ -188,22 +211,22 @@ function submitData() {
             newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Income/Budget from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income} to ${newIncome}\n`;
         }
         if (newTransport != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport) {
-            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Transport Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Transport from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
         }
         if (newShopping != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping) {
-            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Shopping Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping} to ${newShopping}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Shopping from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping} to ${newShopping}\n`;
         }
 
         if (newEntertainment != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment) {
-            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Entertainment Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment} to ${newEntertainment}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Entertainment from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment} to ${newEntertainment}\n`;
         }
 
         if (newFood != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food) {
-            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Food Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food} to ${newFood}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Food from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food} to ${newFood}\n`;
         }
 
         if (newOthers != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others) {
-            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Others Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others} to ${newOthers}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Others from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others} to ${newOthers}\n`;
         }
         var ajaxSettings = {
             "async": true,

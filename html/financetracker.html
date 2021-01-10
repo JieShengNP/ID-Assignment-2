@@ -24,14 +24,22 @@
                 <p>Loading Chart...</p>
             </div>
             <div class="ft-details">
-                <p id = "ft-income-p"></p>
-                <p id = "ft-income-value"></p>
-                <p id = "ft-totalspent-p"></p>
-                <p id = "ft-totalspent-value"></p>
-                <p id = "ft-leftover-p"></p>
-                <p id = "ft-leftover-value"></p>
-                <button class="button button-si" onclick="openDataWindow()">Edit Data</button>
-                <button class="button button-si" onclick="openEditWindow()">Recent Edits</button>
+                <div class="ft-type-container">
+                    <p id="ft-income-p"></p>
+                    <p id="ft-income-value"></p>
+                </div>
+                <div class="ft-type-container">
+                    <p id="ft-totalspent-p"></p>
+                    <p id="ft-totalspent-value"></p>
+                </div>
+                <div class="ft-type-container">
+                    <p id="ft-leftover-p"></p>
+                    <p id="ft-leftover-value"></p>
+                </div>
+                <div class="ftbutton-div">
+                    <button class="ftbutton" onclick="openDataWindow()">Edit Data</button>
+                    <button class="ftbutton" onclick="openEditWindow()">Recent Edits</button>
+                </div>
             </div>
         </div>
     </div>
@@ -66,8 +74,8 @@
                 <input id="ft-others" type="number" required placeholder=" " min="0">
             </div>
             <div class="data-buttons">
-                <button class="button button-g" id="submitDataButton" onclick="submitData()">Edit</button>
-                <button class="button button-r" onclick="closeDataWindow()">Cancel</button>
+                <button class="ftbutton button-g" id="submitDataButton" onclick="submitData()">Edit</button>
+                <button class="ftbutton button-r" onclick="closeDataWindow()">Cancel</button>
             </div>
         </div>
     </div>
