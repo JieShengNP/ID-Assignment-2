@@ -176,8 +176,8 @@ function titleCenter(options) {
 var currentwidth = null;
 var responsiveChart = function(){
     if (visualViewport.width != currentwidth){
-        loadChartTable();
         window.currentwidth = visualViewport.width;
+        loadChartTable();
     }
 }
 setInterval(responsiveChart, 1);
