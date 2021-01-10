@@ -74,7 +74,7 @@ function signupGetValue() {
                             "content-type": "application/json"
                         },
                         "processData": false,
-                        "data": JSON.stringify({ Transport: 0, Shopping: 0, Entertainment: 0, Food: 0, Others: 0 })
+                        "data": JSON.stringify({ Transport: 0, Shopping: 0, Entertainment: 0, Food: 0, Others: 0, RecentTransactions: "" })
                     };
                     $.ajax(ajaxSettings).done(function (response) {
                         console.log(response);
