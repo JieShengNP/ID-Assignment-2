@@ -53,11 +53,13 @@ function checkLocalData() {
     }
 }
 
+//Reset Chart
 function resetChartTable() {
     document.getElementById("ft-piechart").innerHTML = '<div id="piechart"></div>';
     document.getElementById("piechart-placeholder").style.display = "flex";
 }
 
+//Loads Google Charts
 function loadChartTable() {
     resetChartTable();
     google.charts.load('current', { 'packages': ['corechart'] });
@@ -165,15 +167,18 @@ function loadChartTable() {
     }
 }
 
+//Log Out Function
 function logOut() {
     window.localStorage.clear();
     window.location.replace("../html/logout.html");
 }
 
+//Close Edit Data's Window
 function closeDataWindow() {
     document.getElementById("editDataWindow").style.display = "none";
 }
 
+//Open Edit Data's Window
 function openDataWindow() {
     document.getElementById("editDataWindow").style.display = "block";
     document.getElementById("ft-income").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income;
@@ -184,6 +189,7 @@ function openDataWindow() {
     document.getElementById("ft-others").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others;
 }
 
+//Submit Data to API
 function submitData() {
     document.getElementById("submitDataButton").disabled = true;
     var newIncome = document.getElementById("ft-income").value;
@@ -256,6 +262,7 @@ function submitData() {
     });
 }
 
+//Centralisation of title in Google Charts
 function titleCenter(options) {
     var $container = $('#piechart');
     var svgWidth = $container.find('svg').width();
@@ -265,6 +272,7 @@ function titleCenter(options) {
     $titleElem.attr('x', xAxisAlign);
 }
 
+//To make Chart responsive to window width changes.
 var currentwidth = null;
 var responsiveChart = function () {
     if (visualViewport.width != currentwidth) {
@@ -275,6 +283,7 @@ var responsiveChart = function () {
 
 setInterval(responsiveChart, 1);
 
+//Open the Recent Edit window
 function openEditWindow() {
     document.getElementById("viewEditWindow").style.display = "block";
     var ajaxSettings = {
@@ -302,6 +311,7 @@ function openEditWindow() {
     });
 }
 
+//Close the Recent Edit window and resets it.
 function closeEditWindow() {
     document.getElementById("viewEditWindow").style.display = "none";
     document.getElementById("editListDate").innerHTML = "";

@@ -15,6 +15,7 @@ var userAID = null;
 var existingUsername = null;
 var salt = "JavaScript!";
 
+//Disable user to submit if all options are blank
 var checkBlanks = function () {
     if (document.getElementById("su-username").value == "") {
         document.getElementById("signup-button").disabled = true;
@@ -30,6 +31,7 @@ var checkBlanks = function () {
 
 setInterval(checkBlanks, 1);
 
+//Sign Up Function
 function signupGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupEmail = document.getElementById("su-email").value.toUpperCase();
@@ -136,6 +138,7 @@ function signupGetValue() {
 
 }
 
+//Clear Local Storage on Load
 function clearLocalData() {
     window.localStorage.clear();
 }

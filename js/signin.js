@@ -12,6 +12,7 @@ var usernameSettings = {
 
 var salt = "JavaScript!";
 
+//Sign In Function
 function signinGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
     var signupPassword = document.getElementById("su-password").value;
@@ -47,6 +48,7 @@ function signinGetValue() {
     });
 }
 
+//Clear Local Storage on Load
 function clearLocalData() {
     window.localStorage.clear();
 }
