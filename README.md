@@ -13,7 +13,7 @@ HTML          - Building of website.
 CSS           - Designing of website.  
 JavaScript    - Scripting of website.  
 RestDB        - Online Database API to store User's Data.  
-Google Charts - Google Charts API to draw a Chart.
+Google Charts - Google Charts API to draw a Chart.  
 CryptoJS      - Encryption of User's Password.  
 JQuery        - To simplify DOM manipulation.
 
