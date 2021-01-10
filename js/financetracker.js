@@ -22,8 +22,7 @@ function loadDataFromServer() {
             "x-apikey": "5ff2b985823229477922c6e2",
             "cache-control": "no-cache"
         }
-    }
-
+    };
     $.ajax(usernameSettings).done(function (response) {
         for (i = 0; i < response.length; i++) {
             if (response[i]._id == JSON.parse(localStorage.getItem("AccountInfo"))._id) {
@@ -63,7 +62,7 @@ function loadChartTable() {
     function drawChart() {
         var ADFI = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0];
         var mostSpent = Math.max(ADFI.Transport, ADFI.Shopping, ADFI.Entertainment, ADFI.Food, ADFI.Others);
-        var slicesForChart = {}
+        var slicesForChart = {};
         var counter = 0;
         var offsetAmount = 0.05;
         if (mostSpent != 0) {
@@ -91,6 +90,7 @@ function loadChartTable() {
             if (counter == 0) {
                 var data = google.visualization.arrayToDataTable([
                     ['Category', 'Amount Spent ($)'], ["No Data Found\nStart Adding Data Now!", 1]]);
+                return data;
             } else {
                 var data = google.visualization.arrayToDataTable([
                     ['Category', 'Amount Spent ($)'],
@@ -100,8 +100,8 @@ function loadChartTable() {
                     ['Food', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food],
                     ['Others', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others]
                 ]);
+                return data;
             }
-            return data;
         }
         data = loadGraphData();
         var options = {
@@ -114,7 +114,6 @@ function loadChartTable() {
             height: "10%",
             slices: slicesForChart
         };
-
         document.getElementById("piechart-placeholder").style.display = "none";
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
@@ -141,6 +140,7 @@ function openDataWindow() {
 }
 
 function submitData() {
+    document.getElementById("submitDataButton").disabled = true;
     var newTransport = document.getElementById("ft-transport").value;
     var newShopping = document.getElementById("ft-shopping").value;
     var newEntertainment = document.getElementById("ft-entertainment").value;
@@ -156,30 +156,29 @@ function submitData() {
             "x-apikey": "5ff2b985823229477922c6e2",
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(ajaxSettings).done(function (response) {
         var recentTransactions = response.RecentTransactions;
         var d = new Date();
         var newEdits = "";
         if (newTransport != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport) {
-            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Transport Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Transport Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
         }
         if (newShopping != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping) {
-            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Shopping Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping} to ${newShopping}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Shopping Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping} to ${newShopping}\n`;
         }
 
         if (newEntertainment != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment) {
-            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Entertainment Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment} to ${newEntertainment}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Entertainment Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment} to ${newEntertainment}\n`;
         }
 
         if (newFood != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food) {
-            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Food Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food} to ${newFood}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Food Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food} to ${newFood}\n`;
         }
 
         if (newOthers != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others) {
-            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Others Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others} to ${newOthers}\n`;
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Others Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others} to ${newOthers}\n`;
         }
-
         var ajaxSettings = {
             "async": true,
             "crossDomain": true,
@@ -198,8 +197,9 @@ function submitData() {
                 Others: Number(newOthers),
                 RecentTransactions: recentTransactions + newEdits
             })
-        }
+        };
         $.ajax(ajaxSettings).done(function (response) {
+            document.getElementById("submitDataButton").disabled = false;
             closeDataWindow();
             loadDataFromServer();
         });
@@ -221,7 +221,8 @@ var responsiveChart = function () {
         window.currentwidth = visualViewport.width;
         loadChartTable();
     }
-}
+};
+
 setInterval(responsiveChart, 1);
 
 function openEditWindow() {
@@ -236,7 +237,7 @@ function openEditWindow() {
             "x-apikey": "5ff2b985823229477922c6e2",
             "cache-control": "no-cache"
         }
-    }
+    };
     $.ajax(ajaxSettings).done(function (response) {
         var recentTransactions = response.RecentTransactions;
         var recentEdits = recentTransactions.split("\n");
@@ -244,13 +245,12 @@ function openEditWindow() {
         var lastFiveEdits = recentEdits.slice(Math.max(recentEdits.length - 5, 0));
         lastFiveEdits.reverse();
         for (var i = 0; i < lastFiveEdits.length; i++) {
-            var infoSeperator = lastFiveEdits[i].split("\t")
+            var infoSeperator = lastFiveEdits[i].split("\t");
             document.getElementById("editListDate").innerHTML += infoSeperator[0] + "<br>";
             document.getElementById("editListContent").innerHTML += infoSeperator[1] + "<br>";
         }
     });
 }
-
 
 function closeEditWindow() {
     document.getElementById("viewEditWindow").style.display = "none";
@@ -262,4 +262,4 @@ window.onclick = function (event) {
     if (event.target == document.getElementById("viewEditWindow")) {
         document.getElementById("viewEditWindow").style.display = "none";
     }
-}
+};

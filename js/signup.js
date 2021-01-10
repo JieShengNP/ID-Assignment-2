@@ -8,18 +8,12 @@ var usernameSettings = {
         "x-apikey": "5ff2b985823229477922c6e2",
         "cache-control": "no-cache"
     }
-}
+};
 
-$.ajax(usernameSettings).done(function (response) {
-    console.log(response);
-});
-
-var db = new restdb("5ff2b985823229477922c6e2");
-var userID = null;
 var userFID = null;
 var userAID = null;
 var existingUsername = null;
-var salt = "JavaScript!"
+var salt = "JavaScript!";
 
 function signupGetValue() {
     var signupUsername = document.getElementById("su-username").value.toUpperCase();
@@ -30,7 +24,6 @@ function signupGetValue() {
         for (i = 0; i < response.length; i++) {
             if (signupUsername == response[i].Username) {
                 $(".sbutton").removeClass("button-active");
-                $(".sbutton").removeClass("button-success");
                 $('p#su-un-taken').css("opacity", "1");
                 existingUsername = signupUsername;
                 var checkUsername = setInterval(function () {
@@ -43,8 +36,7 @@ function signupGetValue() {
             }
             if (signupEmail == response[i].AccountDetails[0].Email) {
                 $(".sbutton").removeClass("button-active");
-                $(".sbutton").removeClass("button-success");
-                $('p#su-un-taken').css("opacity", "1");
+                $('p#su-em-taken').css("opacity", "1");
                 existingEmail = signupEmail;
                 var checkEmail = setInterval(function () {
                     if (document.getElementById("su-email").value.toUpperCase() != existingEmail) {
@@ -67,7 +59,7 @@ function signupGetValue() {
                     },
                     "processData": false,
                     "data": JSON.stringify({ Email: signupEmail, Password: encryptedPassword })
-                }
+                };
                 $.ajax(ajaxSettings).done(function (response) {
                     console.log(response);
                     window.userAID = response._id;
@@ -83,7 +75,7 @@ function signupGetValue() {
                         },
                         "processData": false,
                         "data": JSON.stringify({ Transport: 0, Shopping: 0, Entertainment: 0, Food: 0, Others: 0 })
-                    }
+                    };
                     $.ajax(ajaxSettings).done(function (response) {
                         console.log(response);
                         window.userFID = response._id;
@@ -99,10 +91,8 @@ function signupGetValue() {
                             },
                             "processData": false,
                             "data": JSON.stringify({ Username: signupUsername, AccountDetails: [userAID], FinanceInfo: [userFID] })
-                        }
+                        };
                         $.ajax(ajaxSettings).done(function (response) {
-                            console.log(response);
-                            window.userID = response._id;
                             if (window.localStorage.getItem("AccountInfo")) {
                                 window.localStorage.removeItem("AccountInfo");
                             }
@@ -117,9 +107,9 @@ function signupGetValue() {
                             setTimeout(function () {
                                 window.location.href = "../html/financetracker.html";
                             }, 1000);
-                        })
-                    })
-                })
+                        });
+                    });
+                });
             }
         }
     });
