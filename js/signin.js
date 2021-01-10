@@ -17,24 +17,32 @@ function signinGetValue() {
     var signupPassword = document.getElementById("su-password").value;
     var encryptedPassword = CryptoJS.SHA1(signupPassword + salt).toString();
     $.ajax(usernameSettings).done(function (response) {
-        for (i = 0; i < response.length; i++) {
-            if (signupUsername == response[i].Username && encryptedPassword == response[i].AccountDetails[0].Password) {
-                window.userID = response[i]._id;
-                if (window.localStorage.getItem("AccountInfo")) {
-                    window.localStorage.removeItem("AccountInfo");
+        if (response.length != 0) {
+            for (i = 0; i < response.length; i++) {
+                if (signupUsername == response[i].Username && encryptedPassword == response[i].AccountDetails[0].Password) {
+                    window.userID = response[i]._id;
+                    if (window.localStorage.getItem("AccountInfo")) {
+                        window.localStorage.removeItem("AccountInfo");
+                    }
+                    window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
+                    $(".sbutton").addClass("button-success");
+                    setTimeout(function () {
+                        window.location.href = "../html/financetracker.html";
+                    }, 1000);
+                    break;
+                } else if ((i + 1) == response.length) {
+                    setTimeout(function () {
+                        $(".sbutton").removeClass("button-active");
+                        $('.si-incorrect').css("opacity", "1");
+                    }, 1000);
                 }
-                window.localStorage.setItem("AccountInfo", JSON.stringify(response[i]));
-                $(".sbutton").addClass("button-success");
-                setTimeout(function () {
-                    window.location.href = "../html/financetracker.html";
-                }, 1000);
-                break;
-            } else if ((i + 1) == response.length) {
-                setTimeout(function () {
-                    $(".sbutton").removeClass("button-active");
-                    $('.si-incorrect').css("opacity", "1");
-                }, 1000);
             }
+        }
+        else {
+            setTimeout(function () {
+                $(".sbutton").removeClass("button-active");
+                $('.si-incorrect').css("opacity", "1");
+            }, 1000);
         }
     });
 }
