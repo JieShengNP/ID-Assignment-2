@@ -38,6 +38,10 @@ function loadDataFromServer() {
                 }
             }
         }
+        if (response.length == 0){
+            alert("An Error Has Occured. Returning back to main page.");
+            window.location.replace('../html/index.html');
+        }
     });
 }
 
@@ -85,11 +89,27 @@ function loadChartTable() {
             if (ADFI.Others == mostSpent) {
                 slicesForChart[counter.toString()] = { "offset": offsetAmount };
             }
+            if (ADFI.Others != 0) { counter++ }
+            if (ADFI.Savings > 0) {
+                slicesForChart[counter.toString()] = { "offset": offsetAmount };
+            }
+
         }
         function loadGraphData() {
             if (counter == 0) {
                 var data = google.visualization.arrayToDataTable([
                     ['Category', 'Amount Spent ($)'], ["No Data Found\nStart Adding Data Now!", 1]]);
+                return data;
+            } else if (JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings > 0) {
+                var data = google.visualization.arrayToDataTable([
+                    ['Category', 'Amount Spent ($)'],
+                    ['Transport', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport],
+                    ['Shopping', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping],
+                    ['Entertainment', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment],
+                    ['Food', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food],
+                    ['Others', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others],
+                    ['Savings', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings]
+                ]);
                 return data;
             } else {
                 var data = google.visualization.arrayToDataTable([
@@ -100,6 +120,7 @@ function loadChartTable() {
                     ['Food', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food],
                     ['Others', JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others]
                 ]);
+
                 return data;
             }
         }
@@ -115,6 +136,7 @@ function loadChartTable() {
         };
         document.getElementById("piechart-placeholder").style.display = "none";
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        document.getElementById("ft-piechart").style.display = "flex";
         chart.draw(data, options);
         google.visualization.events.addListener(chart, 'ready', titleCenter(options));
     }
@@ -131,6 +153,7 @@ function closeDataWindow() {
 
 function openDataWindow() {
     document.getElementById("editDataWindow").style.display = "block";
+    document.getElementById("ft-income").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income;
     document.getElementById("ft-transport").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport;
     document.getElementById("ft-shopping").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping;
     document.getElementById("ft-entertainment").value = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment;
@@ -140,6 +163,7 @@ function openDataWindow() {
 
 function submitData() {
     document.getElementById("submitDataButton").disabled = true;
+    var newIncome = document.getElementById("ft-income").value;
     var newTransport = document.getElementById("ft-transport").value;
     var newShopping = document.getElementById("ft-shopping").value;
     var newEntertainment = document.getElementById("ft-entertainment").value;
@@ -160,6 +184,9 @@ function submitData() {
         var recentTransactions = response.RecentTransactions;
         var d = new Date();
         var newEdits = "";
+        if (newIncome != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income) {
+            newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Income/Budget from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income} to ${newIncome}\n`;
+        }
         if (newTransport != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport) {
             newEdits += `${d.getDate() + "/" + d.getMonth() + 1 + "/" + d.getFullYear()}\tChanged Transport Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
         }
@@ -189,6 +216,7 @@ function submitData() {
             },
             "processData": false,
             "data": JSON.stringify({
+                Income: Number(newIncome),
                 Transport: Number(newTransport),
                 Shopping: Number(newShopping),
                 Entertainment: Number(newEntertainment),
@@ -241,7 +269,7 @@ function openEditWindow() {
         var recentTransactions = response.RecentTransactions;
         var recentEdits = recentTransactions.split("\n");
         recentEdits.pop();
-        var lastFiveEdits = recentEdits.slice(Math.max(recentEdits.length - 5, 0));
+        var lastFiveEdits = recentEdits.slice(Math.max(recentEdits.length - 6, 0));
         lastFiveEdits.reverse();
         for (var i = 0; i < lastFiveEdits.length; i++) {
             var infoSeperator = lastFiveEdits[i].split("\t");
@@ -262,3 +290,31 @@ window.onclick = function (event) {
         document.getElementById("viewEditWindow").style.display = "none";
     }
 };
+
+
+var reloadData = function () {
+    var income = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Income;
+    var totalSpent = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Total;
+    if (income == 0 && totalSpent == 0) {
+        document.getElementById("ft-income-p").innerHTML = "There";
+        document.getElementById("ft-income-value").innerHTML = "Is";
+        document.getElementById("ft-totalspent-p").innerHTML = "No";
+        document.getElementById("ft-totalspent-value").innerHTML = "Data";
+        document.getElementById("ft-leftover-p").innerHTML = "Add";
+        document.getElementById("ft-leftover-value").innerHTML = "Now!";
+    } else {
+        document.getElementById("ft-income-p").innerHTML = "Income/Budget($):";
+        document.getElementById("ft-income-value").innerHTML = income;
+        document.getElementById("ft-totalspent-p").innerHTML = "Amount Spent($):";
+        document.getElementById("ft-totalspent-value").innerHTML = totalSpent;
+        if (JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings >= 0) {
+            document.getElementById("ft-leftover-p").innerHTML = "Savings($):";
+            document.getElementById("ft-leftover-value").innerHTML = JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings;
+        } else if (JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings < 0) {
+            document.getElementById("ft-leftover-p").innerHTML = "Overspent Amount($):";
+            document.getElementById("ft-leftover-value").innerHTML = Math.abs(JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Savings);
+        }
+    }
+}
+setInterval(reloadData, 1000);
+setInterval(loadDataFromServer, 10000);

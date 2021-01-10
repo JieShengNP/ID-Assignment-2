@@ -18,13 +18,21 @@
             <h1>Overall Spendings</h1>
         </div>
         <button id="ft-logout" onclick="logOut();">Log Out</button>
-        <div id="ft-piechart"></div>
-        <div id="piechart-placeholder">
-            <p>Loading Chart...</p>
-        </div>
-        <div class="ft-buttons">
-            <button class="button button-si" onclick="openDataWindow()">Edit Data</button>
-            <button class="button button-si" onclick="openEditWindow()">Recent Edits</button>
+        <div class="ft-main">
+            <div id="ft-piechart"></div>
+            <div id="piechart-placeholder">
+                <p>Loading Chart...</p>
+            </div>
+            <div class="ft-details">
+                <p id = "ft-income-p"></p>
+                <p id = "ft-income-value"></p>
+                <p id = "ft-totalspent-p"></p>
+                <p id = "ft-totalspent-value"></p>
+                <p id = "ft-leftover-p"></p>
+                <p id = "ft-leftover-value"></p>
+                <button class="button button-si" onclick="openDataWindow()">Edit Data</button>
+                <button class="button button-si" onclick="openEditWindow()">Recent Edits</button>
+            </div>
         </div>
     </div>
 
@@ -32,6 +40,10 @@
         <div class="editDataContent">
             <div class="dataHeader">
                 <h1>Edit Data</h1>
+            </div>
+            <div class="ft-data ft-income">
+                <label for="ft-income">Income/Budget($):</label>
+                <input id="ft-income" type="number" required placeholder=" " min="0">
             </div>
             <div class="ft-data ft-transport">
                 <label for="ft-transport">Transport($):</label>
@@ -54,7 +66,7 @@
                 <input id="ft-others" type="number" required placeholder=" " min="0">
             </div>
             <div class="data-buttons">
-                <button class="button button-g" id = "submitDataButton" onclick="submitData()">Edit</button>
+                <button class="button button-g" id="submitDataButton" onclick="submitData()">Edit</button>
                 <button class="button button-r" onclick="closeDataWindow()">Cancel</button>
             </div>
         </div>
@@ -64,10 +76,13 @@
             <span id="edit-close" onclick="closeEditWindow();">&times;</span>
             <div class="dataHeader">
                 <h1>Recent Edits</h1>
-                <div class="editListTitle"><p>Date</p><p>Details</p></div>
+                <div class="editListTitle">
+                    <p>Date</p>
+                    <p>Details</p>
+                </div>
                 <div class="editListCon">
-                    <p id = "editListDate"></p>
-                    <p id = "editListContent"></p>
+                    <p id="editListDate"></p>
+                    <p id="editListContent"></p>
                 </div>
             </div>
         </div>
