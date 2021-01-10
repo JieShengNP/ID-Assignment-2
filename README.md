@@ -6,7 +6,8 @@ This website allows user to include their income/budget and their spendings and 
 This website is for people who want to track their spending when they are in budget or want to track where they spent most in.
 
 ## Features
--Uesr can edit their data and get live-update.  -User's data will be stored online so there will be no data lost.
+-Uesr can edit their data and get live-update.  
+-User's data will be stored online so there will be no data lost.
 ## Technologies Used
 HTML          - Building of website.  
 CSS           - Designing of website.  
