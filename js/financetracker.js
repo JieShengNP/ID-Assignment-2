@@ -50,7 +50,7 @@ function checkLocalData() {
     }
 }
 
-function resetChartTable(){
+function resetChartTable() {
     document.getElementById("ft-piechart").innerHTML = '<div id="piechart"></div>';
     document.getElementById("piechart-placeholder").style.display = "flex";
 }
@@ -108,9 +108,9 @@ function loadChartTable() {
             title: 'My Financial Tracker',
             pieHole: 0.3,
             backgroundColor: 'white',
-            titleTextStyle: {fontSize: 24*visualViewport.width/1920},
-            legend:{textStyle:{fontSize: 24*visualViewport.width/1920}, alignment: "center"},
-            chartArea:{width:"100%",height:"80%"},
+            titleTextStyle: { fontSize: 24 * visualViewport.width / 1920 },
+            legend: { textStyle: { fontSize: 24 * visualViewport.width / 1920 }, alignment: "center" },
+            chartArea: { width: "100%", height: "80%" },
             height: "10%",
             slices: slicesForChart
         };
@@ -150,17 +150,59 @@ function submitData() {
         "async": true,
         "crossDomain": true,
         "url": "https://financialtracker-407b.restdb.io/rest/finance/" + JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0]._id,
-        "method": "PUT",
+        "method": "GET",
         "headers": {
-            "x-apikey": '5ff2b985823229477922c6e2',
-            "content-type": "application/json"
-        },
-        "processData": false,
-        "data": JSON.stringify({ Transport: Number(newTransport), Shopping: Number(newShopping), Entertainment: Number(newEntertainment), Food: Number(newFood), Others: Number(newOthers) })
+            "content-type": "application/json",
+            "x-apikey": "5ff2b985823229477922c6e2",
+            "cache-control": "no-cache"
+        }
     }
     $.ajax(ajaxSettings).done(function (response) {
-        closeDataWindow();
-        loadDataFromServer();
+        var recentTransactions = response.RecentTransactions;
+        var d = new Date();
+        var newEdits = "";
+        if (newTransport != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport) {
+            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Transport Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Transport} to ${newTransport}\n`;
+        }
+        if (newShopping != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping) {
+            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Shopping Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Shopping} to ${newShopping}\n`;
+        }
+
+        if (newEntertainment != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment) {
+            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Entertainment Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Entertainment} to ${newEntertainment}\n`;
+        }
+
+        if (newFood != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food) {
+            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Food Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Food} to ${newFood}\n`;
+        }
+
+        if (newOthers != JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others) {
+            newEdits += `${d.getDate() + "/" + d.getMonth()+1 + "/" + d.getFullYear()}\tChanged Others Spendings from ${JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0].Others} to ${newOthers}\n`;
+        }
+
+        var ajaxSettings = {
+            "async": true,
+            "crossDomain": true,
+            "url": "https://financialtracker-407b.restdb.io/rest/finance/" + JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0]._id,
+            "method": "PUT",
+            "headers": {
+                "x-apikey": '5ff2b985823229477922c6e2',
+                "content-type": "application/json"
+            },
+            "processData": false,
+            "data": JSON.stringify({
+                Transport: Number(newTransport),
+                Shopping: Number(newShopping),
+                Entertainment: Number(newEntertainment),
+                Food: Number(newFood),
+                Others: Number(newOthers),
+                RecentTransactions: recentTransactions + newEdits
+            })
+        }
+        $.ajax(ajaxSettings).done(function (response) {
+            closeDataWindow();
+            loadDataFromServer();
+        });
     });
 }
 
@@ -168,16 +210,56 @@ function titleCenter(options) {
     var $container = $('#piechart');
     var svgWidth = $container.find('svg').width();
     var $titleElem = $container.find("text:contains(" + options.title + ")");
-    var titleWidth = $titleElem.html().length * ($titleElem.attr('font-size')/2);
-    var xAxisAlign = (svgWidth - titleWidth)/2;
+    var titleWidth = $titleElem.html().length * ($titleElem.attr('font-size') / 2);
+    var xAxisAlign = (svgWidth - titleWidth) / 2;
     $titleElem.attr('x', xAxisAlign);
 }
 
 var currentwidth = null;
-var responsiveChart = function(){
-    if (visualViewport.width != currentwidth){
+var responsiveChart = function () {
+    if (visualViewport.width != currentwidth) {
         window.currentwidth = visualViewport.width;
         loadChartTable();
     }
 }
 setInterval(responsiveChart, 1);
+
+function openEditWindow() {
+    document.getElementById("viewEditWindow").style.display = "block";
+    var ajaxSettings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "https://financialtracker-407b.restdb.io/rest/finance/" + JSON.parse(localStorage.getItem("AccountInfo")).FinanceInfo[0]._id,
+        "method": "GET",
+        "headers": {
+            "content-type": "application/json",
+            "x-apikey": "5ff2b985823229477922c6e2",
+            "cache-control": "no-cache"
+        }
+    }
+    $.ajax(ajaxSettings).done(function (response) {
+        var recentTransactions = response.RecentTransactions;
+        var recentEdits = recentTransactions.split("\n");
+        recentEdits.pop();
+        var lastFiveEdits = recentEdits.slice(Math.max(recentEdits.length - 5, 0));
+        lastFiveEdits.reverse();
+        for (var i = 0; i < lastFiveEdits.length; i++) {
+            var infoSeperator = lastFiveEdits[i].split("\t")
+            document.getElementById("editListDate").innerHTML += infoSeperator[0] + "<br>";
+            document.getElementById("editListContent").innerHTML += infoSeperator[1] + "<br>";
+        }
+    });
+}
+
+
+function closeEditWindow() {
+    document.getElementById("viewEditWindow").style.display = "none";
+    document.getElementById("editListDate").innerHTML = "";
+    document.getElementById("editListContent").innerHTML = "";
+}
+
+window.onclick = function (event) {
+    if (event.target == document.getElementById("viewEditWindow")) {
+        document.getElementById("viewEditWindow").style.display = "none";
+    }
+}
