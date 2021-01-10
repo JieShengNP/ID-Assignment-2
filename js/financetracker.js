@@ -106,7 +106,6 @@ function loadChartTable() {
         data = loadGraphData();
         var options = {
             title: 'My Financial Tracker',
-            pieHole: 0.3,
             backgroundColor: 'white',
             titleTextStyle: { fontSize: 24 * visualViewport.width / 1920 },
             legend: { textStyle: { fontSize: 24 * visualViewport.width / 1920 }, alignment: "center" },
